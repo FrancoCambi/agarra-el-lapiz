@@ -1,11 +1,5 @@
-
-
-
 def main():
-
-    print("Hola q tal")
-
-    print("lol")
+    return 0
 
 
 if __name__ == "__main__":
