@@ -1,6 +1,5 @@
 from .tp import Tp
 from .parcial import Parcial
-from utils import parcial_len
 
 
 class Materia:
@@ -16,10 +15,13 @@ class Materia:
         self.parciales.append(parcial)
 
         if len(self.parciales) >= 2:
-            self.parciales.sort(key=parcial_len)
+            self.parciales.sort(key=len)
 
     def agregar_tp(self, tp: Tp) -> None:
         self.tps.append(tp)
+
+        if len(self.tps) >= 2:
+            self.tps.sort(key=len)
 
     def mostrar_parciales(self) -> None:
 
