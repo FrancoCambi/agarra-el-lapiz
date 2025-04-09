@@ -1,53 +1,50 @@
-from .tp import Tp
-from .parcial import Parcial
+from .evaluable import Evaluable
+from .enums import TipoEvaluable
 
 
 class Materia:
     """Clase que simula una materia de la facultad, conteniendo su nombre, parciales y tp's.
     """
 
-    def __init__(self, nombre: str, parciales: list[Parcial] = [], tps: list[Tp] = []):
+    def __init__(self, nombre: str):
         self.nombre = nombre
-        self.parciales = parciales
-        self.tps = tps
+        self.evaluables_pendientes: dict[TipoEvaluable, list[Evaluable]] = {TipoEvaluable.PARCIAL: [], 
+                                                                            TipoEvaluable.TP: []}
 
-    def agregar_parcial(self, parcial: Parcial) -> None:
-        """Agrega un parcial a la materia, de manera ordenada segun su fecha.
+    def agregar_evaluable(self, evaluable: Evaluable) -> None:
+        """Agrega un evaluable a la materia, de manera ordenada segun su fecha.
 
         Args:
-            parcial (Parcial):
+            evaluable (Evaluable):
         """
-
         # Agrego el parcial a la lista
-        self.parciales.append(parcial)
+        self.evaluables_pendientes[evaluable.tipo].append(evaluable)
 
         # Si hay más de dos, ordeno la lista dependiendo su "len", que devuelve la cantidad de dias
         # que faltan para el parcial
-        if len(self.parciales) >= 2:
-            self.parciales.sort(key=len)
+        #Esto se hace para poder printear los parciales en orden cronológico fácilmente.
+        if len(self.evaluables_pendientes[evaluable.tipo]) >= 2:
+            self.evaluables_pendientes[evaluable.tipo].sort(key=len)
 
-    def agregar_tp(self, tp: Tp) -> None:
-        """Agrega un tp a la materia, de manera ordenada segun su fecha de entrega.
 
-        Args:
-            tp (Tp):
-        """
-
-        # Agrego el tp a la lists
-        self.tps.append(tp)
-
-        # Si hay más de dos, ordeno la lista dependiendo su "len", que devuelve la cantidad de dias
-        # que faltan para su entrega.
-        if len(self.tps) >= 2:
-            self.tps.sort(key=len)
-
-    def mostrar_parciales(self) -> None:
-        """Muesta de manera ordenada los parciales de la materia.
+    def mostrar_evaluables(self) -> None:
+        """Muesta de manera ordenada los evaluables de la materia.
         """
 
         # Muestro un título
         print(f"Parciales de {self.nombre}:\n")
 
+        lista_parciales = self.evaluables_pendientes[TipoEvaluable.PARCIAL]
         # Muestro cada parcial con su fecha y nota si corresponde.
-        for i in range(len(self.parciales)):
-            print(f"Parcial {i + 1}: {self.parciales[i].fecha}, nota: {self.parciales[i].nota if self.parciales[i].nota != -1 else "No hay nota."}")
+        for i in range(len(lista_parciales)):
+            print(f"Parcial {i + 1}: {lista_parciales[i].fecha}, nota: {lista_parciales[i].nota if lista_parciales[i].nota != -1 else "No hay nota."}")
+
+        print("------------------------------------------------------------------")
+
+        # Muestro un título
+        print(f"Tps de {self.nombre}:\n")
+
+        lista_tps = self.evaluables_pendientes[TipoEvaluable.TP]
+        # Muestro cada tp con su fecha y nota si corresponde.
+        for i in range(len(lista_tps)):
+            print(f"Tp {i + 1}: {lista_tps[i].fecha}, nota: {lista_tps[i].nota if lista_tps[i].nota != -1 else "No hay nota."}")

@@ -1,7 +1,7 @@
 """models"""
 
 from .materia import Materia
-from .parcial import Parcial
-from .tp import Tp
+from .evaluable import Evaluable
+from .enums import TipoEvaluable
 
-__all__ = ["Materia", "Parcial", "Tp"]
+__all__ = ["Materia", "Evaluable", "TipoEvaluable"]
