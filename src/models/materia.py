@@ -26,6 +26,26 @@ class Materia:
         if len(self.evaluables_pendientes[evaluable.tipo]) >= 2:
             self.evaluables_pendientes[evaluable.tipo].sort(key=len)
 
+    def cargar_nota(self, evaluable: Evaluable, nota: int) -> None:
+        """Esta función recibe un evaluable y una nota. Luego, lo remueve de su lista
+        correspondiente y carga la nota.
+
+        Args:
+            evaluable (Evaluable):
+            nota (int): 
+        """
+    
+        # Si es un parcial, debo trabajar sobre la lista de parciales
+        if evaluable.tipo == TipoEvaluable.PARCIAL:
+            self.evaluables_pendientes[TipoEvaluable.PARCIAL].remove(evaluable)
+
+        # Si no, es un tp, trabajo sobre la lista de tps
+        else:
+            self.evaluables_pendientes[TipoEvaluable.Tp].remove(evaluable)
+
+        # Cargo la nota.
+        evaluable.nota = nota
+
 
     def mostrar_evaluables(self) -> None:
         """Muesta de manera ordenada los evaluables de la materia.
