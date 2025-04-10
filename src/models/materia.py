@@ -48,7 +48,7 @@ class Materia:
 
 
     def mostrar_evaluables(self) -> None:
-        """Muesta de manera ordenada los evaluables de la materia.
+        """Muesta de manera ordenada los evaluables de las materias.
         """
 
         # Muestro un título
