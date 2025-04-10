@@ -48,7 +48,7 @@ class Materia:
 
 
     def mostrar_evaluables(self) -> None:
-        """Muesta de manera ordenada los evaluables de las materias.
+        """Muesta de manera ordenada los evaluables de la materia.
         """
 
         # Muestro un título
@@ -57,7 +57,7 @@ class Materia:
         lista_parciales = self.evaluables_pendientes[TipoEvaluable.PARCIAL]
         # Muestro cada parcial con su fecha y nota si corresponde.
         for i in range(len(lista_parciales)):
-            print(f"Parcial {i + 1}: {lista_parciales[i].fecha}, nota : {lista_parciales[i].nota if lista_parciales[i].nota != -1 else "No hay nota cargada."}")
+            print(f"Parcial {i + 1}: {lista_parciales[i].fecha}, nota: {lista_parciales[i].nota if lista_parciales[i].nota != -1 else "No hay nota cargada."}")
 
         print("------------------------------------------------------------------")
 
