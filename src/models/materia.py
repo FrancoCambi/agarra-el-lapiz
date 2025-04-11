@@ -3,12 +3,15 @@ from .enums import TipoEvaluable
 
 
 class Materia:
-    """Clase que simula una materia de la facultad, conteniendo su nombre, parciales y tp's.
+    """Clase que simula una materia de la facultad, conteniendo su 
+        nombre, parciales y tp's.
     """
 
     def __init__(self, nombre: str):
         self.nombre = nombre
         self.evaluables_pendientes: dict[TipoEvaluable, list[Evaluable]] = {TipoEvaluable.PARCIAL: [], 
+                                                                            TipoEvaluable.TP: []}
+        self.archivo: dict[TipoEvaluable, list[Evaluable]] = {TipoEvaluable.PARCIAL: [], 
                                                                             TipoEvaluable.TP: []}
 
     def agregar_evaluable(self, evaluable: Evaluable) -> None:
@@ -26,6 +29,20 @@ class Materia:
         if len(self.evaluables_pendientes[evaluable.tipo]) >= 2:
             self.evaluables_pendientes[evaluable.tipo].sort(key=len)
 
+    def obtener_evaluable(self, tipo: TipoEvaluable, num: int) -> Evaluable:
+        """Esta función recibe un tipo de evaluable y un número, para luego
+        devolver el evaluable correspondiente.
+
+        Args:
+            tipo (TipoEvaluable): TipoEvaluable.PARCIAL o TipoEvaluable.TP
+            num (int): El número de parcial o tp, empezando desde el 1.
+
+        Returns:
+            Evaluable: El objecto evaluable correspondiente.
+        """
+
+        return self.evaluables_pendientes[tipo][num - 1]
+
     def cargar_nota(self, evaluable: Evaluable, nota: int) -> None:
         """Esta función recibe un evaluable y una nota. Luego, lo remueve de su lista
         correspondiente y carga la nota.
@@ -35,13 +52,12 @@ class Materia:
             nota (int): 
         """
     
-        # Si es un parcial, debo trabajar sobre la lista de parciales
-        if evaluable.tipo == TipoEvaluable.PARCIAL:
-            self.evaluables_pendientes[TipoEvaluable.PARCIAL].remove(evaluable)
+        # Remuevo el evaluable de la lista correspondiente del diccionario
+        # evaluables pendientes.
+        self.evaluables_pendientes[evaluable.tipo].remove(evaluable)
 
-        # Si no, es un tp, trabajo sobre la lista de tps
-        else:
-            self.evaluables_pendientes[TipoEvaluable.Tp].remove(evaluable)
+        # Agrego el evaluable al archivo de evaluables pasados.
+        self.archivo[evaluable.tipo].append(evaluable)
 
         # Cargo la nota.
         evaluable.nota = nota
