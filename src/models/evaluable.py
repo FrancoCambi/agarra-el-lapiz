@@ -38,9 +38,28 @@ class Evaluable:
             nota (int): Nota del evaluable
         """
 
-        # Se crea este metodo innecesario por ahora, por si luego se necesitan
+        # Se crea este metodo (un tanto innecesario por ahora), por si luego se necesitan
         # realizar mas cosas al cargar una nota.
 
+        # Si se pasa una nota sin sentido, se da un error
+        if nota < 0:
+            raise ValueError("La nota de un evaluable no puede ser negativa")
 
         # Cargo la nota
         self.nota = nota
+
+    def cambiar_fecha(self, nueva_fecha: date) -> None:
+        """Este metodo funciona de setter de fecha.
+
+        Args:
+            nueva_fecha (date): Fecha que reemplaza la anterior
+        """
+
+        # Si el dia ya paso, damos un error.
+        if (nueva_fecha < date.today()):
+            raise ValueError("La nueva fecha del evaluable no puede ser un dia que ya paso.")
+        
+        # Cambiamos la fecha
+        self.fecha = nueva_fecha
+
+        
