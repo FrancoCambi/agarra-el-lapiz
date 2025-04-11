@@ -63,14 +63,18 @@ class Materia:
         evaluable.nota = nota
 
 
-    def mostrar_evaluables(self) -> None:
-        """Muesta de manera ordenada los evaluables de la materia.
+    def mostrar_evaluables(self, archivo: bool = False) -> None:
+        """Muestra de manera ordenada los evaluables pendientes o ya rendidos de una materia.
+
+        Args:
+            archivo (bool, optional): Si es falso, se muestran los pendientes.
+            Si es verdadero, los ya rendidos. Es falso por defecto.
         """
 
         # Muestro un título
-        print(f"Parciales de {self.nombre}:\n")
+        print(f"Parciales:\n")
 
-        lista_parciales = self.evaluables_pendientes[TipoEvaluable.PARCIAL]
+        lista_parciales = self.evaluables_pendientes[TipoEvaluable.PARCIAL] if not archivo else self.archivo[TipoEvaluable.PARCIAL]
         # Muestro cada parcial con su fecha y nota si corresponde.
         for i in range(len(lista_parciales)):
             print(f"Parcial {i + 1}: {lista_parciales[i].fecha}, nota: {lista_parciales[i].nota if lista_parciales[i].nota != -1 else "No hay nota cargada."}")
@@ -78,9 +82,10 @@ class Materia:
         print("------------------------------------------------------------------")
 
         # Muestro un título
-        print(f"Tps de {self.nombre}:\n")
+        print(f"Tps:\n")
 
-        lista_tps = self.evaluables_pendientes[TipoEvaluable.TP]
+        lista_tps = self.evaluables_pendientes[TipoEvaluable.TP] if not archivo else self.archivo[TipoEvaluable.TP]
         # Muestro cada tp con su fecha y nota si corresponde.
         for i in range(len(lista_tps)):
             print(f"Tp {i + 1}: {lista_tps[i].fecha}, nota: {lista_tps[i].nota if lista_tps[i].nota != -1 else "No hay nota cargada."}")
+
