@@ -67,6 +67,22 @@ def test_obtener_evaluable():
 
 def test_cargar_nota():
 
+    parcial1 = Evaluable(TipoEvaluable.PARCIAL, date(2025, 4, 15))
+
+    parcial1.cargar_nota(8)
+
+    assert parcial1.nota == 8
+
+    tp1 = Evaluable(TipoEvaluable.TP, date(2025, 6, 7))
+
+    tp1.cargar_nota(7)
+
+    assert tp1.nota == 7   
+
+    print("test cargar_nota passed!") 
+
+def test_archivar_evaluable():
+
     materia = Materia("test")
 
     parcial1 = Evaluable(TipoEvaluable.PARCIAL, date(2025, 4, 15))
@@ -75,12 +91,10 @@ def test_cargar_nota():
     materia.agregar_evaluable(parcial1)
     materia.agregar_evaluable(parcial2)
 
-    materia.cargar_nota(parcial1, 8)
-    materia.cargar_nota(parcial2, 6)
+    materia.archivar_evaluable(parcial1)
+    materia.archivar_evaluable(parcial2)
 
     assert not len(materia.evaluables_pendientes[TipoEvaluable.PARCIAL])
-    assert parcial1.nota == 8
-    assert parcial2.nota == 6
     assert len(materia.archivo[TipoEvaluable.PARCIAL]) == 2
 
     tp1 = Evaluable(TipoEvaluable.TP, date(2025, 4, 15))
@@ -89,16 +103,15 @@ def test_cargar_nota():
     materia.agregar_evaluable(tp1)
     materia.agregar_evaluable(tp2)
 
-    materia.cargar_nota(tp1, 8)
-    materia.cargar_nota(tp2, 6)
+    materia.archivar_evaluable(tp1)
+    materia.archivar_evaluable(tp2)
 
     assert not len(materia.evaluables_pendientes[TipoEvaluable.TP])
-    assert tp1.nota == 8
-    assert tp2.nota == 6
     assert len(materia.archivo[TipoEvaluable.TP]) == 2
 
-    print("test_cargar_nota passed!")
+    print("test_archivar_evaluable passed!")
 
 test_agregar_evaluable()
 test_obtener_evaluable()
 test_cargar_nota()
+test_archivar_evaluable()

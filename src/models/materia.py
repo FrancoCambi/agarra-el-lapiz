@@ -43,13 +43,13 @@ class Materia:
 
         return self.evaluables_pendientes[tipo][num - 1]
 
-    def cargar_nota(self, evaluable: Evaluable, nota: int) -> None:
-        """Esta función recibe un evaluable y una nota. Luego, lo remueve de su lista
-        correspondiente y carga la nota.
+    def archivar_evaluable(self, evaluable: Evaluable) -> None:
+        """Esta función recibe un evaluable. Luego, lo remueve de su lista
+        correspondiente y lo agrega al diccionario archivo, en su lista
+        correspondiente.
 
         Args:
             evaluable (Evaluable):
-            nota (int): 
         """
     
         # Remuevo el evaluable de la lista correspondiente del diccionario
@@ -58,10 +58,6 @@ class Materia:
 
         # Agrego el evaluable al archivo de evaluables pasados.
         self.archivo[evaluable.tipo].append(evaluable)
-
-        # Cargo la nota.
-        evaluable.nota = nota
-
 
     def mostrar_evaluables(self, archivo: bool = False) -> None:
         """Muestra de manera ordenada los evaluables pendientes o ya rendidos de una materia.
@@ -77,7 +73,7 @@ class Materia:
         lista_parciales = self.evaluables_pendientes[TipoEvaluable.PARCIAL] if not archivo else self.archivo[TipoEvaluable.PARCIAL]
         # Muestro cada parcial con su fecha y nota si corresponde.
         for i in range(len(lista_parciales)):
-            print(f"Parcial {i + 1}: {lista_parciales[i].fecha}, nota: {lista_parciales[i].nota if lista_parciales[i].nota != -1 else "No hay nota cargada."}")
+            print(f"Parcial {i + 1}:", lista_parciales[i])
 
         print("------------------------------------------------------------------")
 
@@ -87,5 +83,4 @@ class Materia:
         lista_tps = self.evaluables_pendientes[TipoEvaluable.TP] if not archivo else self.archivo[TipoEvaluable.TP]
         # Muestro cada tp con su fecha y nota si corresponde.
         for i in range(len(lista_tps)):
-            print(f"Tp {i + 1}: {lista_tps[i].fecha}, nota: {lista_tps[i].nota if lista_tps[i].nota != -1 else "No hay nota cargada."}")
-
+            print(f"Tp {i + 1}:", lista_tps[i])

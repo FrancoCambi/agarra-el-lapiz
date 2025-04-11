@@ -23,3 +23,24 @@ class Evaluable:
             int: Cantidad de dias que faltan para el parcial/tp
         """
         return (self.fecha - date.today()).days
+    
+    def __str__(self):
+        """Este metodo sobreescribe a print() para que cuando se trata de
+        printear un objeto de tipo Evaluable, se ejecute este codigo
+        """
+
+        return f"Fecha: {self.fecha}, nota: {self.nota if self.nota else "No hay nota"}"
+    
+    def cargar_nota(self, nota: int) -> None:
+        """Este metodo recibe una nota y la asocia al evaluable.
+
+        Args:
+            nota (int): Nota del evaluable
+        """
+
+        # Se crea este metodo innecesario por ahora, por si luego se necesitan
+        # realizar mas cosas al cargar una nota.
+
+
+        # Cargo la nota
+        self.nota = nota
