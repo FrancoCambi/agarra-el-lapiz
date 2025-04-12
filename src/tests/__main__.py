@@ -2,6 +2,7 @@ from datetime import date, timedelta
 import unittest
 
 from models import Materia, Evaluable, TipoEvaluable
+from data import Data
 
 class MyTestCase(unittest.TestCase):
 
@@ -128,5 +129,17 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(len(materia.archivo[TipoEvaluable.TP]), 2)
 
         print("test_archivar_evaluable passed!")
+
+    def test_guardar_materias(self):
+
+        materia = Materia("EDyAII")
+
+        materia.agregar_evaluable(Evaluable(TipoEvaluable.PARCIAL, date(2025, 5, 15)))
+
+        data = Data()
+
+        data.agregar_materia(materia)
+
+        data.guardar_materias()
 
 unittest.main(exit=False)

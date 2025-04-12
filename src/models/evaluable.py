@@ -31,6 +31,24 @@ class Evaluable:
 
         return f"Fecha: {self.fecha}, nota: {self.nota if self.nota else "No hay nota"}"
     
+    def to_dict(self):
+        """Transforma un evaluable a diccionario
+
+        Returns:
+            _type_:
+        """
+
+        return {"tipo": self.tipo.value,
+                "fecha": self.fecha.isoformat(),
+                "nota": self.nota}
+    
+    @classmethod
+    def from_dict(cls, data):
+        tipo = TipoEvaluable(data["tipo"])
+        fecha = date.fromisoformat(data["fecha"])
+        nota = data["nota"]
+        return cls(tipo, fecha, nota)
+    
     def cargar_nota(self, nota: int) -> None:
         """Este metodo recibe una nota y la asocia al evaluable.
 

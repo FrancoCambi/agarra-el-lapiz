@@ -25,6 +25,41 @@ class Materia:
                 f"{len(self.archivo[TipoEvaluable.PARCIAL])} parciales archivados\n"
                 f"{len(self.archivo[TipoEvaluable.TP])} tps archivados\n")
     
+    def to_dict(self):
+        """Este metodo transforma el objeto a un diccionario para ser guardado.
+
+        Returns:
+            _type_:
+        """
+
+        return {"nombre": self.nombre, 
+                "evaluables_pendientes": {
+                    tipo.value: [e.to_dict() for e in lista] for tipo, lista in self.evaluables_pendientes.items()
+                },
+                "archivo": {
+                    tipo.value: [e.to_dict() for e in lista] for tipo, lista in self.archivo.items()
+                }}
+    
+    @classmethod
+    def from_dict(cls, data):
+        """Este metodo toma la data guardada y crea una nueva instancia
+        del objeto guardado
+
+        Args:
+            data (_type_):
+
+        Returns:
+            _type_: _description_
+        """
+        materia = cls(data["nombre"])
+        materia.evaluables_pendientes = {
+            TipoEvaluable(k): [Evaluable.from_dict(e) for e in v] for k, v in data["evaluables_pendientes"].items()
+        }
+        materia.archivo = {
+            TipoEvaluable(k): [Evaluable.from_dict(e) for e in v] for k, v in data["archivo"].items()
+        }
+        return materia
+    
 
     def agregar_evaluable(self, evaluable: Evaluable) -> None:
         """Agrega un evaluable a la materia, de manera ordenada segun su fecha.
