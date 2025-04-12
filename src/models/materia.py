@@ -13,6 +13,18 @@ class Materia:
                                                                             TipoEvaluable.TP: []}
         self.archivo: dict[TipoEvaluable, list[Evaluable]] = {TipoEvaluable.PARCIAL: [], 
                                                                             TipoEvaluable.TP: []}
+    
+    def __str__(self):
+        """Este metodo sobreescribe a la funcion print() cuando se aplica sobre
+        un objeto de tipo materia
+        """
+
+        return (f"{self.nombre}:\n"
+                f"{len(self.evaluables_pendientes[TipoEvaluable.PARCIAL])} parciales pendientes\n"
+                f"{len(self.evaluables_pendientes[TipoEvaluable.TP])} tps pendientes\n"
+                f"{len(self.archivo[TipoEvaluable.PARCIAL])} parciales archivados\n"
+                f"{len(self.archivo[TipoEvaluable.TP])} tps archivados\n")
+    
 
     def agregar_evaluable(self, evaluable: Evaluable) -> None:
         """Agrega un evaluable a la materia, de manera ordenada segun su fecha.
@@ -84,3 +96,4 @@ class Materia:
         # Muestro cada tp con su fecha y nota si corresponde.
         for i in range(len(lista_tps)):
             print(f"Tp {i + 1}:", lista_tps[i])
+
