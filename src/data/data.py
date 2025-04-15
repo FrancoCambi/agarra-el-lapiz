@@ -1,7 +1,7 @@
 import json
 import os
 
-from models import Materia
+from models import Materia, TipoData
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -12,7 +12,7 @@ class Data():
     
     def __init__(self):
 
-        self.data: dict[str, list] = {"materias": []}
+        self.data: dict[str, list] = {TipoData.MATERIAS: []}
 
     def agregar_materia(self, materia: Materia) -> None:
         """Esta funcion recibe una materia y la agrega a la lista
@@ -22,7 +22,7 @@ class Data():
             materia (Materia):
         """
 
-        self.data["materias"].append(materia)
+        self.data[TipoData.MATERIAS].append(materia)
 
     def eliminar_materia(self, materia: Materia) -> None:
         """Esta funcion recibe una materia y la elimina de la
@@ -32,10 +32,10 @@ class Data():
             materia (Materia):
         """
 
-        self.data["materias"].remove(materia)
+        self.data[TipoData.MATERIAS].remove(materia)
 
-    def guardar_materias(self) -> None:
-        """Esta funcion guarda las materias en un .txt en formato
+    def guardar(self) -> None:
+        """Esta funcion guarda todos los datos en un .txt en formato
         de json.
         """
 
@@ -43,7 +43,7 @@ class Data():
 
         with open(ruta, "w") as file:
             json.dump({
-                "materias" : [m.to_dict() for m in self.data["materias"]]
+                "materias" : [m.to_dict() for m in self.data[TipoData.MATERIAS]]
             }, file, indent=4)
 
     def cargar(self) -> None:
@@ -55,5 +55,5 @@ class Data():
 
         with open(ruta, "r") as f:
             contenido = json.load(f)
-            self.data["materias"] = [Materia.from_dict(m) for m in contenido["materias"]]
+            self.data[TipoData.MATERIAS] = [Materia.from_dict(m) for m in contenido["materias"]]
 

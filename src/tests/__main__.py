@@ -1,7 +1,7 @@
 from datetime import date, timedelta
 import unittest
 
-from models import Materia, Evaluable, TipoEvaluable
+from models import Materia, Evaluable, TipoEvaluable, TipoData
 from data import Data
 
 class MyTestCase(unittest.TestCase):
@@ -10,13 +10,13 @@ class MyTestCase(unittest.TestCase):
 
         materia = Materia("Testname")
 
-        parcial1 = Evaluable(TipoEvaluable.PARCIAL, date(2025, 4, 15))
+        parcial1 = Evaluable(TipoEvaluable.PARCIAL, date(2025, 5, 15))
         materia.agregar_evaluable(parcial1)
 
         self.assertEqual(materia.evaluables_pendientes[TipoEvaluable.PARCIAL][0], parcial1)
 
-        parcial2 = Evaluable(TipoEvaluable.PARCIAL, date(2025, 4, 12))
-        parcial3 = Evaluable(TipoEvaluable.PARCIAL, date(2025, 4, 17))
+        parcial2 = Evaluable(TipoEvaluable.PARCIAL, date(2025, 5, 12))
+        parcial3 = Evaluable(TipoEvaluable.PARCIAL, date(2025, 5, 17))
 
         materia.agregar_evaluable(parcial2)
         materia.agregar_evaluable(parcial3)
@@ -42,13 +42,12 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(materia.evaluables_pendientes[TipoEvaluable.TP][1], tp1)
         self.assertEqual(materia.evaluables_pendientes[TipoEvaluable.TP][2], tp3)
 
-        print("test_agregar_evaluable passed!")
 
     def test_obtener_evaluable(self):
 
         materia = Materia("test")
 
-        parcial1 = Evaluable(TipoEvaluable.PARCIAL, date(2025, 4, 15))
+        parcial1 = Evaluable(TipoEvaluable.PARCIAL, date(2025, 5, 15))
         parcial2 = Evaluable(TipoEvaluable.PARCIAL, date(2025, 5, 15))
 
         materia.agregar_evaluable(parcial1)
@@ -59,7 +58,7 @@ class MyTestCase(unittest.TestCase):
 
         # TESTS TPs
 
-        tp1 = Evaluable(TipoEvaluable.TP, date(2025, 4, 15))
+        tp1 = Evaluable(TipoEvaluable.TP, date(2025, 5, 15))
         tp2 = Evaluable(TipoEvaluable.TP, date(2025, 5, 15))
 
         materia.agregar_evaluable(tp1)
@@ -68,7 +67,6 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(materia.obtener_evaluable(TipoEvaluable.TP, 1), tp1)
         self.assertEqual(materia.obtener_evaluable(TipoEvaluable.TP, 2), tp2)
 
-        print("test_obtener_evaluable_passed!")
 
     def test_cargar_nota(self):
 
@@ -87,7 +85,6 @@ class MyTestCase(unittest.TestCase):
         self.assertRaises(ValueError, parcial1.cargar_nota, -5)   
         self.assertRaises(ValueError, tp1.cargar_nota, -5)   
 
-        print("test cargar_nota passed!")
 
     def test_cambiar_fecha(self):
 
@@ -128,18 +125,29 @@ class MyTestCase(unittest.TestCase):
         self.assertFalse(len(materia.evaluables_pendientes[TipoEvaluable.TP]))
         self.assertEqual(len(materia.archivo[TipoEvaluable.TP]), 2)
 
-        print("test_archivar_evaluable passed!")
+    def test_agregar_materia(self):
 
-    def test_guardar_materias(self):
-
-        materia = Materia("EDyAII")
-
-        materia.agregar_evaluable(Evaluable(TipoEvaluable.PARCIAL, date(2025, 5, 15)))
+        m = Materia("testname")
 
         data = Data()
 
-        data.agregar_materia(materia)
+        data.agregar_materia(m)
 
-        data.guardar_materias()
+        self.assertEqual(len(data.data[TipoData.MATERIAS]), 1)
+        self.assertEqual(data.data[TipoData.MATERIAS][0], m)
+
+    def test_eliminar_materia(self):
+
+        m = Materia("test")
+
+        data = Data()
+
+        data.agregar_materia(m)
+
+        data.eliminar_materia(m)
+
+        self.assertFalse(len(data.data[TipoData.MATERIAS]))
+
+    
 
 unittest.main(exit=False)

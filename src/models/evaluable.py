@@ -22,7 +22,10 @@ class Evaluable:
         Returns:
             int: Cantidad de dias que faltan para el parcial/tp
         """
-        return (self.fecha - date.today()).days
+
+        restante = (self.fecha - date.today()).days
+
+        return restante if restante else 0
     
     def __str__(self):
         """Este metodo sobreescribe a print() para que cuando se trata de
@@ -44,16 +47,32 @@ class Evaluable:
     
     @classmethod
     def from_dict(cls, data):
+        """Esta funcion es un metodo de clase que
+        sirve para crear un nuevo objeto de tipo Evaluable
+        a partir de un diccionario data.
+
+        Args:
+            data (_type_): diccionario que contiene la informacion 
+            necesaria para crear un objeto de tipo Evaluable, donde
+            sus keys son los nombres de los atributos como strings.
+            Por ejemplo, "tipo", o "fecha".
+
+        Returns:
+            _type_: _description_
+        """
         tipo = TipoEvaluable(data["tipo"])
         fecha = date.fromisoformat(data["fecha"])
         nota = data["nota"]
         return cls(tipo, fecha, nota)
     
     def cargar_nota(self, nota: int) -> None:
-        """Este metodo recibe una nota y la asocia al evaluable.
+        """Este metodo recibe una nota y la asocial al evaluable
 
         Args:
-            nota (int): Nota del evaluable
+            nota (int): Nota a asociar, no puede ser negativa.
+
+        Raises:
+            ValueError: Si la nota es negativa.
         """
 
         # Se crea este metodo (un tanto innecesario por ahora), por si luego se necesitan
@@ -71,6 +90,9 @@ class Evaluable:
 
         Args:
             nueva_fecha (date): Fecha que reemplaza la anterior
+
+        Raises:
+            ValueError: Si la fecha es ya pasada.
         """
 
         # Si el dia ya paso, damos un error.

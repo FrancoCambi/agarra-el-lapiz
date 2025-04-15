@@ -6,40 +6,11 @@
                 "Parcial": [
                     {
                         "tipo": "Parcial",
-                        "fecha": "2025-05-06",
+                        "fecha": "2025-05-15",
                         "nota": -1
                     }
                 ],
-                "Tp": [
-                    {
-                        "tipo": "Tp",
-                        "fecha": "2025-05-06",
-                        "nota": -1
-                    }
-                ]
-            },
-            "archivo": {
-                "Parcial": [],
                 "Tp": []
-            }
-        },
-        {
-            "nombre": "PyE",
-            "evaluables_pendientes": {
-                "Parcial": [
-                    {
-                        "tipo": "Parcial",
-                        "fecha": "2025-05-06",
-                        "nota": -1
-                    }
-                ],
-                "Tp": [
-                    {
-                        "tipo": "Tp",
-                        "fecha": "2025-05-06",
-                        "nota": -1
-                    }
-                ]
             },
             "archivo": {
                 "Parcial": [],

@@ -2,6 +2,6 @@
 
 from .materia import Materia
 from .evaluable import Evaluable
-from .enums import TipoEvaluable
+from .enums import TipoEvaluable, TipoData
 
-__all__ = ["Materia", "Evaluable", "TipoEvaluable"]
+__all__ = ["Materia", "Evaluable", "TipoEvaluable", "TipoData"]
