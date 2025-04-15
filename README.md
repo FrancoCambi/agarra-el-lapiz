@@ -1,11 +1,7 @@
 # agarra-el-lapiz
 Sistema de organización para tareas y exámenes/tp de la facu.
 
-6/4/25
-
-v1.0
-
-### Comandos disponibles (sujetos a cambios):
+## Comandos disponibles (sujetos a cambios)
 
 - [x] agregar_materia  
 - [x] eliminar_materia  
@@ -21,3 +17,29 @@ v1.0
 - [ ] promedio materia  
 - [ ] promedio general  
 - [ ] help
+
+## Ejecución
+
+Para ejecutar el sistema se debe ejecutar el módulo **app**, de la siguiente manera:
+
+```
+python -m src/app
+```
+
+Otras formas si alguna falla:
+
+```
+python3 -m src/app
+```
+
+```
+py -m python src/app
+```
+
+Para ejecutar los tests, es igual, solo que se ejecuta el modulo **tests**
+
+```
+python -m src/tests
+```
+
+6/4/25
