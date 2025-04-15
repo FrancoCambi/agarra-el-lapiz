@@ -9,13 +9,13 @@ v1.0
 
 - [x] agregar_materia  
 - [x] eliminar_materia  
-- [ ] mostrar_materias  
+- [x] mostrar_materias  
 - [x] agregar_tp  
 - [x] cargar_nota_tp  
-- [ ] eliminar_tp  
+- [x] eliminar_tp  
 - [x] agregar_parcial  
 - [x] cargar_nota_parcial  
-- [ ] eliminar_parcial  
+- [x] eliminar_parcial  
 - [ ] mostrar_parciales  
 - [ ] mostrar_tps  
 - [ ] promedio materia  

@@ -148,6 +148,47 @@ class MyTestCase(unittest.TestCase):
 
         self.assertFalse(len(data.data[TipoData.MATERIAS]))
 
+    def test_eliminar_evaluable(self):
+
+        materia = Materia("Testname")
+
+        parcial1 = Evaluable(TipoEvaluable.PARCIAL, date(2025, 5, 15))
+        parcial2 = Evaluable(TipoEvaluable.PARCIAL, date(2025, 5, 12))
+        parcial3 = Evaluable(TipoEvaluable.PARCIAL, date(2025, 5, 17))
+
+        materia.agregar_evaluable(parcial1)
+        materia.agregar_evaluable(parcial2)
+        materia.agregar_evaluable(parcial3)
+
+        materia.eliminar_evaluable(parcial1)
+        self.assertNotIn(parcial1, materia.evaluables_pendientes[TipoEvaluable.PARCIAL])
+
+        materia.eliminar_evaluable(parcial2)
+        self.assertNotIn(parcial2, materia.evaluables_pendientes[TipoEvaluable.PARCIAL])
+
+        materia.eliminar_evaluable(parcial3)
+        self.assertNotIn(parcial3, materia.evaluables_pendientes[TipoEvaluable.PARCIAL])
+
+        # TESTS TPs
+
+        tp1 = Evaluable(TipoEvaluable.TP, date(2025, 5, 10))
+        tp2 = Evaluable(TipoEvaluable.TP, date(2025, 5, 5))
+        tp3 = Evaluable(TipoEvaluable.TP, date(2025, 5, 20))
+
+        materia.agregar_evaluable(tp1)
+        materia.agregar_evaluable(tp2)
+        materia.agregar_evaluable(tp3)
+
+        materia.eliminar_evaluable(tp1)
+        self.assertNotIn(tp1, materia.evaluables_pendientes[TipoEvaluable.TP])
+
+        materia.eliminar_evaluable(tp2)
+        self.assertNotIn(tp2, materia.evaluables_pendientes[TipoEvaluable.TP])
+
+        materia.eliminar_evaluable(tp3)
+        self.assertNotIn(tp3, materia.evaluables_pendientes[TipoEvaluable.TP])
+
+
     
 
 unittest.main(exit=False)

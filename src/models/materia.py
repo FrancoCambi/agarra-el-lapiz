@@ -76,6 +76,29 @@ class Materia:
         if len(self.evaluables_pendientes[evaluable.tipo]) >= 2:
             self.evaluables_pendientes[evaluable.tipo].sort(key=len)
 
+    def eliminar_evaluable(self, evaluable: Evaluable) -> bool:
+        """Este metodo recibe un evaluable y lo elimina de 
+        su lista correspondiente.
+
+        Args:
+            evaluable (Evaluable): Evaluable a eliminar
+
+        Returns:
+            bool: True si fue eliminado, False si no.
+            (Si da false, quiere decir que no estaba en la lista)
+        """
+
+        # Trato de eliminarlo de la lista
+        try:
+            self.evaluables_pendientes[evaluable.tipo].remove(evaluable)
+        # Si no existe, remove da ValueError, asi que lo cazo
+        # y devuelvo False    
+        except ValueError:
+            return False
+    
+        # Si no hubo erro, fue eliminado con exito. Ergo, devuelvo True
+        return True
+
     def obtener_evaluable(self, tipo: TipoEvaluable, num: int) -> Evaluable:
         """Esta función recibe un tipo de evaluable y un número, para luego
         devolver el evaluable correspondiente.
@@ -88,6 +111,7 @@ class Materia:
             Evaluable: El objecto evaluable correspondiente.
         """
 
+        # Devuelvo el (i-1)-esimo evaluable.
         return self.evaluables_pendientes[tipo][num - 1]
 
     def archivar_evaluable(self, evaluable: Evaluable) -> None:
