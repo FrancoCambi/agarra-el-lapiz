@@ -12,8 +12,7 @@ Sistema de organización para tareas y exámenes/tp de la facu.
 - [x] agregar_parcial  
 - [x] cargar_nota_parcial  
 - [x] eliminar_parcial  
-- [ ] mostrar_parciales  
-- [ ] mostrar_tps  
+- [ ] mostrar_evaluables    
 - [ ] promedio materia  
 - [ ] promedio general  
 - [ ] help
