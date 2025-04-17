@@ -155,4 +155,46 @@ class Materia:
         # Muestro cada tp con su fecha y nota si corresponde.
         for i in range(len(lista_tps)):
             print(f"Tp {i + 1}:", lista_tps[i])
+    
+    def promedio(self, tps: bool = False, general: bool = False) -> float:
+        """Esta funcion devuelve el promedio de las notas de los
+        parciales, tps o general.
+
+        Args:
+            tps (bool, optional): Si es true, devuelve el promedio
+            de los tps. Defaults to False.
+            general (bool, optional): Si es true, devuelve el promedio
+            general de la materia. Defaults to False.
+
+        Raises:
+            Exception: Si ambas banderas son True.
+        """
+
+        # Si tanto tps como general son true, doy error.
+        if general and tps:
+            raise Exception("No pueden ser ambas banderas True.")
+
+        # Inicializo el contador en cero.
+        suma = 0
+
+        # Creo variables auxiliares para que sea mas legible
+        # el if de abajo. 
+        parciales = self.archivo[TipoEvaluable.PARCIAL]    
+        trabajos = self.archivo[TipoEvaluable.TP] 
+
+        # Depende que bandera se activa, se crea una lista
+        # conteniendo los evaluables correspondientes
+        # para el calculo del promedio.
+        evaluables = (parciales + trabajos if general 
+                      else trabajos if tps 
+                      else parciales)
+
+        # Sumo todo y devuelvo el promedio
+        for ev in evaluables:
+            suma += ev.nota
+
+        return suma / len(evaluables)
+
+
+            
 

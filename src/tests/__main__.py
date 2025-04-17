@@ -101,8 +101,8 @@ class MyTestCase(unittest.TestCase):
 
         materia = Materia("test")
 
-        parcial1 = Evaluable(TipoEvaluable.PARCIAL, date(2025, 4, 15))
-        parcial2 = Evaluable(TipoEvaluable.PARCIAL, date(2025, 5, 15))
+        parcial1 = Evaluable(TipoEvaluable.PARCIAL, date(2025, 7, 15))
+        parcial2 = Evaluable(TipoEvaluable.PARCIAL, date(2025, 7, 15))
 
         materia.agregar_evaluable(parcial1)
         materia.agregar_evaluable(parcial2)
@@ -113,8 +113,8 @@ class MyTestCase(unittest.TestCase):
         self.assertFalse(len(materia.evaluables_pendientes[TipoEvaluable.PARCIAL]))
         self.assertEqual(len(materia.archivo[TipoEvaluable.PARCIAL]), 2)
 
-        tp1 = Evaluable(TipoEvaluable.TP, date(2025, 4, 15))
-        tp2 = Evaluable(TipoEvaluable.TP, date(2025, 5, 15))
+        tp1 = Evaluable(TipoEvaluable.TP, date(2025, 7, 15))
+        tp2 = Evaluable(TipoEvaluable.TP, date(2025, 7, 15))
 
         materia.agregar_evaluable(tp1)
         materia.agregar_evaluable(tp2)
@@ -187,6 +187,28 @@ class MyTestCase(unittest.TestCase):
 
         materia.eliminar_evaluable(tp3)
         self.assertNotIn(tp3, materia.evaluables_pendientes[TipoEvaluable.TP])
+
+    def test_promedio(self):
+
+        materia = Materia("test")
+
+        parcial1 = Evaluable(TipoEvaluable.PARCIAL, date(2025, 7, 15))
+
+        parcial1.cargar_nota(8)
+
+        tp1 = Evaluable(TipoEvaluable.TP, date(2025, 6, 7))
+
+        tp1.cargar_nota(7)
+
+        materia.agregar_evaluable(parcial1)
+        materia.agregar_evaluable(tp1)
+        materia.archivar_evaluable(parcial1)
+        materia.archivar_evaluable(tp1)
+
+        self.assertEqual(materia.promedio(), 8)
+        self.assertEqual(materia.promedio(tps=True), 7)
+        self.assertEqual(materia.promedio(general=True), 7.5)
+        self.assertRaises(Exception, materia.promedio, True, True)
 
 
     
