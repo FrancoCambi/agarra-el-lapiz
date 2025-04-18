@@ -1,5 +1,8 @@
 # ✏️ agarra-el-lapiz
 
+🌐 Este README también está disponible en:
+[English](README.en.md)
+
 Un sistema por línea de comandos para organizar tareas, exámenes y trabajos prácticos de la facultad.  
 Gestioná tus materias y seguí tu rendimiento fácilmente desde la terminal.
 
